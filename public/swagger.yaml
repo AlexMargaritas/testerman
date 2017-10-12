@@ -1,0 +1,60 @@
+swagger: "2.0"
+info:
+  description: "API for USinMade Applications"
+  version: "1.0.0"
+  termsOfService: "http://api.usim.dev/v1"
+  title: "USinMade API"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "api.usim.dev"
+basePath: "/v1"
+
+schemes:
+- "http"
+paths:
+
+  /collection:
+    get:
+      tags:
+        - "collection"
+
+  /product:
+    get:
+      tags:
+        - "product"
+
+  /showcase:
+    get:
+      tags:
+        - "showcase"
+        
+
+    # post:
+    #   tags:
+    #   - "product"
+    #   summary: "Add a new pet to the store"
+    #   description: ""
+    #   operationId: "addPet"
+    #   consumes:
+    #   - "application/json"
+    #   - "application/xml"
+    #   produces:
+    #   - "application/xml"
+    #   - "application/json"
+    #   parameters:
+    #   - in: "body"
+    #     name: "body"
+    #     description: "Pet object that needs to be added to the store"
+    #     required: true
+    #     schema:
+    #       $ref: "#/definitions/Pet"
+    #   responses:
+    #     405:
+    #       description: "Invalid input"
+    #   security:
+    #   - petstore_auth:
+    #     - "write:pets"
+    #     - "read:pets"
