@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Resources;
 
-use App\Models\Product;
+use App\Models\Collection;
 use Illuminate\Http\Request;
 use Validator;
 
-class ProductController extends ResourceController
+class CollectionController extends ResourceController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+     public function index(Request $request)
     {
         $limit = $request->limit ?: 10;
         
-        $paginator = Product::paginate($limit);
+        $paginator = Collection::paginate($limit);
 
         return $this->withPagination($paginator);
     }
@@ -31,12 +31,7 @@ class ProductController extends ResourceController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'linkurl' => 'required',
-            'imageurl' => 'required',
-            'network' => 'required',
-            'price' => 'required',
-            'uuid' => 'required'
+            'title' => 'required'
         ]);
 
         if ($validator->fails()) {    
@@ -44,26 +39,21 @@ class ProductController extends ResourceController
                 'errors' => $validator->errors()
             ], 400);
         }
-
-        $product = Product::create([
-            "name" => $request->name,
-            "link_url" => $request->linkurl,
-            "image_url" => $request->imageurl,
-            "network" => $request->network,
-            "price" => $request->price,
-            "uuid" => $request->uuid,
+        
+        $collection = Collection::create([
+            "title" => $request->title
         ]);
 
-        return $product;
+        return $collection;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Collection  $collection
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Collection $collection)
     {
         //
     }
@@ -71,10 +61,10 @@ class ProductController extends ResourceController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Collection  $collection
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Collection $collection)
     {
         //
     }
@@ -83,10 +73,10 @@ class ProductController extends ResourceController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\Collection  $collection
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Collection $collection)
     {
         //
     }
@@ -94,10 +84,10 @@ class ProductController extends ResourceController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Collection  $collection
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Collection $collection)
     {
         //
     }

@@ -1,25 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Resources;
+namespace App\Http\Controllers\Resources\Showcase;
 
-use App\Models\Product;
+use App\Models\Showcase;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator;
 
-class ProductController extends ResourceController
+class CellController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Showcase $showcase)
     {
-        $limit = $request->limit ?: 10;
-        
-        $paginator = Product::paginate($limit);
+        return $showcase->layout;
+    }
 
-        return $this->withPagination($paginator);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        
     }
 
     /**
@@ -30,31 +36,7 @@ class ProductController extends ResourceController
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'linkurl' => 'required',
-            'imageurl' => 'required',
-            'network' => 'required',
-            'price' => 'required',
-            'uuid' => 'required'
-        ]);
-
-        if ($validator->fails()) {    
-            return response()->json([
-                'errors' => $validator->errors()
-            ], 400);
-        }
-
-        $product = Product::create([
-            "name" => $request->name,
-            "link_url" => $request->linkurl,
-            "image_url" => $request->imageurl,
-            "network" => $request->network,
-            "price" => $request->price,
-            "uuid" => $request->uuid,
-        ]);
-
-        return $product;
+        //
     }
 
     /**

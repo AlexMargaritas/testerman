@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\Resources;
 
-use App\Http\Controllers\Controller;
 use App\Models\Showcase;
 use Illuminate\Http\Request;
 use Validator;
 
-class ShowcaseController extends Controller
+class ShowcaseController extends ResourceController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Showcase::all();
+        $limit = $request->limit ?: 10;
+        
+        $paginator = Showcase::paginate($limit);
+
+        return $this->withPagination($paginator);
     }
 
     /**
@@ -37,7 +40,7 @@ class ShowcaseController extends Controller
                 'errors' => $validator->errors()
             ], 400);
         }
-
+        
         $showcase = Showcase::create(["title" => $request->title]);
 
         return $showcase;
@@ -53,7 +56,7 @@ class ShowcaseController extends Controller
     {
         return $showcase;
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
